@@ -19,8 +19,12 @@ jobs:
           extended: true
       - name: Build Hugo site
         run: HUGO_ENV=production hugo --minify --gc
-      - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3
+      - name: Deploy to GitHub Pages
+        if: success()
+        uses: crazy-max/ghaction-github-pages@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: public
+          target_branch: gh-pages
+          build_dir: public
+          fqdn: howtogetanabortioninsouthcarolina.com
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
